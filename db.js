@@ -1,8 +1,10 @@
 import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
 
-const connectionString =
-  "mongodb+srv://stalin:stalin22@cluster0.ubvwzbg.mongodb.net";
+dotenv.config();
 
+const connectionString =process.env.MONGO_URL;
+console.log(connectionString);
 async function dbConnection() {
   try {
     const client = new MongoClient(connectionString);
