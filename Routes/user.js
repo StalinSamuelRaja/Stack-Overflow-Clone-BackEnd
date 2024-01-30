@@ -1,7 +1,7 @@
 import express from "express";
 import { getUser, registerUser } from "../controllers/user.js";
 import bcrypt from "bcrypt";
-import { generateToken } from "../Authorization/Auth.js";
+import { generateToken } from "../Authorization/auth.js";
 const router = express.Router();
 
 //signup
