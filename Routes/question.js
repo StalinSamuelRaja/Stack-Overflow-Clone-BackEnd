@@ -5,6 +5,7 @@ import {
   getAllQuestion,
   updatedQuestion,
 } from "../controllers/question.js";
+import { isAuthorized } from "../Authorization/Auth.js";
 
 //initializing router
 const router = express.Router();

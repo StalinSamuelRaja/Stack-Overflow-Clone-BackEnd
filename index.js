@@ -1,7 +1,9 @@
 import express from "express";
 import { questRouter } from "./Routes/question.js";
 import dotenv from "dotenv";
+import cors from "cors";
 import { userRouter } from "./Routes/user.js";
+import { isAuthorized } from "./Authorization/Auth.js";
 
 
 
@@ -10,6 +12,7 @@ const app = express();
 
 //middlewares
 app.use(express.json());
+app.use(cors())
 
 //env configuration
 dotenv.config();
@@ -17,7 +20,7 @@ dotenv.config();
 //initiating port 
 const PORT = process.env.PORT
 
-app.use("/ques",questRouter);
+app.use("/ques",isAuthorized, questRouter);
 app.use("/user",userRouter);
 
 //listening server
