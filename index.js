@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { userRouter } from "./Routes/user.js";
 import { isAuthorized } from "./Authorization/auth.js";
+import { answRouter } from "./Routes/answer.js";
 
 
 
@@ -21,6 +22,7 @@ dotenv.config();
 const PORT = process.env.PORT
 
 app.use("/ques",isAuthorized, questRouter);
+app.use("/answ",isAuthorized, answRouter);
 app.use("/user",userRouter);
 
 //listening server
