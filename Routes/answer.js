@@ -24,6 +24,9 @@ router.get("/all", async (req, res) => {
 //add
 router.post("/add", async (req, res) => {
   try {
+    if(isAuthorized!=true)
+    {return res.send.json({error: "login or sign in required"})
+    }
     if (Object.keys(req.body).length <= 0) {
       return res.send(400).json({ error: "check request body" });
     }

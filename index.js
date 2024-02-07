@@ -21,8 +21,8 @@ dotenv.config();
 //initiating port 
 const PORT = process.env.PORT
 
-app.use("/ques",isAuthorized, questRouter);
-app.use("/answ",isAuthorized, answRouter);
+app.use("/ques", questRouter);
+app.use("/answ", answRouter);
 app.use("/user",userRouter);
 
 //listening server
