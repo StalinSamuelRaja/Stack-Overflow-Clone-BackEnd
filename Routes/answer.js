@@ -22,33 +22,22 @@ router.get("/all", async (req, res) => {
   }
 });
 
-/router.post("/add", async (req, res) => {
+router.post("/add", async (req, res) => {
   try {
-    // Check if the user is authorized (add your authentication logic here)
-    if (!isAuthorized) {
-      return res.status(401).json({ error: "Login or sign in required" });
+    if (Object.keys(req.body).length <= 0) {
+      return res.send(400).json({ error: "check request body" });
+    }
+    const Answ = { ...req.body };
+    const newAnsw = await addQuestion(Answ);
+    if (!newAnsw.acknowledged) {
+      return res.send(400).json({ error: "error in adding a answer" });
     }
 
-    // Check if the request body is empty or missing required fields
-    const { questionId, newAnswer } = req.body;
-    if (!questionId || !newAnswer) {
-      return res.status(400).json({ error: "Invalid request body" });
-    }
-
-    // Add the answer using the provided questionId and newAnswer
-    const addedAnswer = await addAnswer(questionId, newAnswer);
-
-    // Check if the answer was successfully added
-    if (!addedAnswer) {
-      return res.status(500).json({ error: "Error in adding the answer" });
-    }
-
-    // Send a success response
-    res.status(201).json({ answer: addedAnswer });
+    res.status(201).json({ Answ: newAnsw });
   } catch (error) {
-    // Handle internal server errors
-    console.error("Error adding answer:", error);
-    res.status(500).json({ error: "Internal server error" });
+    return res
+      .status(500)
+      .json({ error: "Internal server error", errorMessage: error });
   }
 });
 
