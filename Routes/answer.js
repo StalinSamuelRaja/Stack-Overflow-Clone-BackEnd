@@ -22,18 +22,15 @@ router.get("/all", async (req, res) => {
   }
 });
 
-router.post("/add", async (req, res) => {
-  try {
-    if (Object.keys(req.body).length <= 0) {
-      return res.send(400).json({ error: "check request body" });
-    }
-    const Answ = { ...req.body };
-    const newAnsw = await addQuestion(Answ);
-    if (!newAnsw.acknowledged) {
-      return res.send(400).json({ error: "error in adding a answer" });
-    }
+// Update the route in answer.js to handle adding an answer without a question ID
+router.get("/all", async (req, res) => {
+  const answer = await getAllAnswer();
 
-    res.status(201).json({ Answ: newAnsw });
+  try {
+    if (answer.length <= 0) {
+      return res.status(404).json({ message: "Answer not found" });
+    }
+    res.status(200).json({ Answ: answer });
   } catch (error) {
     return res
       .status(500)
@@ -43,8 +40,9 @@ router.post("/add", async (req, res) => {
 
 
 
+
 //update
-router.put("/edit/:id", async (req, res) => {
+router.post("/add/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -52,12 +50,12 @@ router.put("/edit/:id", async (req, res) => {
       return res.send(400).json({ error: "check request body" });
     }
 
-    const updatedAnsw = await updatedAnswer(id, req.body);
-    if (!updatedAnsw.acknowledged) {
+    const newAnsw = await addAnswer(id, req.body);
+    if (!newAnsw.acknowledged) {
       return res.send(400).json({ error: "error in updating a answer" });
     }
 
-    res.status(200).json({ Answ: updatedAnsw });
+    res.status(200).json({ Answ: newAnsw });
   } catch (error) {
     return res
       .status(500)
