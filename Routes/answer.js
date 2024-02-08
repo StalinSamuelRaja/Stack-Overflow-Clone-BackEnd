@@ -1,5 +1,6 @@
 import express from "express";
 import { addAnswer, deleteAnswer, getAllAnswer, updatedAnswer } from "../controllers/answer.js";
+import { isAuthorized } from "../Authorization/auth.js";
 
 
 //initializing router
