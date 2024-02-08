@@ -21,28 +21,40 @@ router.get("/all", async (req, res) => {
   }
 });
 
-//add
+// add
 router.post("/add", async (req, res) => {
   try {
-    if(isAuthorized!=true)
-    {return res.send.json({error: "login or sign in required"})
-    }
-    if (Object.keys(req.body).length <= 0) {
-      return res.send(400).json({ error: "check request body" });
-    }
-    const Answ = { ...req.body };
-    const newAnsw = await addAnswer(Answ);
-    if (!newAnsw.acknowledged) {
-      return res.send(400).json({ error: "error in adding a answer" });
+    // Check if the user is authorized (add your authentication logic here)
+    if (!isAuthorized) {
+      return res.status(401).json({ error: "Login or sign in required" });
     }
 
-    res.status(201).json({ Answ: newAnsw });
+    // Check if the request body is empty
+    if (Object.keys(req.body).length === 0) {
+      return res.status(400).json({ error: "Check request body" });
+    }
+
+    // Extract necessary fields from req.body
+    const { questionId, newAnswer } = req.body;
+
+    // Add the answer using the provided questionId and newAnswer
+    const addedAnswer = await addAnswer(questionId, newAnswer);
+
+    // Check if the answer was successfully added
+    if (!addedAnswer) {
+      return res.status(400).json({ error: "Error in adding the answer" });
+    }
+
+    // Send a success response
+    res.status(201).json({ answer: addedAnswer });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ error: "Internal server error", errorMessage: error });
+    // Handle internal server errors
+    console.error("Error adding answer:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
+
+
 
 //update
 router.put("/edit/:id", async (req, res) => {
