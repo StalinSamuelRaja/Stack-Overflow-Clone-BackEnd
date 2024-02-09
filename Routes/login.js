@@ -5,8 +5,9 @@ import {
   getuser,
   getuserbyActivatetoken,
 } from "../controllers/login/login.js";
-import { Accountactivator } from "../Helpers/Acivater.js";
+
 import { GenearateActiveToken, GenearateSessionToken } from "../auth/auth.js";
+import { Accountactivator } from "../Helpers/Activater.js";
 
 const router = express.Router();
 
