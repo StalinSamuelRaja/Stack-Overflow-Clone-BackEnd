@@ -1,4 +1,4 @@
-import express from "express";
+import express, { request } from "express";
 import { addAnswer, deleteAnswer, getAllAnswer, updatedAnswer } from "../controllers/answer.js";
 // import { isAuthorized } from "../Authorization/auth.js";
 
@@ -45,27 +45,29 @@ router.put("/edit/:id", async (req, res) => {
 });
 
 
-
-
 //add
 router.post("/add", async (req, res) => {
   try {
+    console.log(req.body)
     if (Object.keys(req.body).length <= 0) {
       return res.send(400).json({ error: "check request body" });
     }
     const Answ = { ...req.body };
-    const newAnsw = await addQuestion(Answ);
+    const newAnsw = await addAnswer(Answ);
+    console.log(newAnsw)
     if (!newAnsw.acknowledged) {
       return res.send(400).json({ error: "error in adding a answer" });
     }
 
     res.status(201).json({ Answ: newAnsw });
   } catch (error) {
+    console.log(error)
     return res
       .status(500)
       .json({ error: "Internal server error", errorMessage: error });
   }
-});
+}); 
+
 
 //delete
 router.delete("/delete/:id", async (req, res) => {
