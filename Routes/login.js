@@ -1,13 +1,10 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import {
-  NewUser,
-  getuser,
-  getuserbyActivatetoken,
-} from "../controllers/login/login.js";
 
-import { GenearateActiveToken, GenearateSessionToken } from "../auth/auth.js";
+
+import { GenearateActiveToken, GenearateSessionToken } from "../Authorization/auth.js";
 import { Accountactivator } from "../Helpers/Activater.js";
+import { NewUser, getuser, getuserbyActivatetoken } from "../controllers/login.js";
 
 const router = express.Router();
 

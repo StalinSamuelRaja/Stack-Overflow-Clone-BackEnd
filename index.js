@@ -2,9 +2,10 @@ import express from "express";
 import { questRouter } from "./Routes/question.js";
 import dotenv from "dotenv";
 import cors from "cors";
-import { userRouter } from "./Routes/user.js";
+
 import { isAuthorized } from "./Authorization/auth.js";
 import { answRouter } from "./Routes/answer.js";
+import { SigninRouter } from "./Routes/login.js";
 
 
 
@@ -23,7 +24,7 @@ const PORT = process.env.PORT
 
 app.use("/ques", questRouter);
 app.use("/answ", answRouter);
-app.use("/user",userRouter);
+app.use("/user",SigninRouter);
 
 //listening server
 app.listen(PORT, () => console.log(`Server listening on ${PORT}`));

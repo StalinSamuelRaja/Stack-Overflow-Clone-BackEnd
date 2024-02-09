@@ -1,4 +1,4 @@
-import { User } from "../../schema/user.js";
+import { User } from "../schema/user.js";
 
 
 export async  function  getuser(req){
