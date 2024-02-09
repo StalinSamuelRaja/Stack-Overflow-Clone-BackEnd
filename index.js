@@ -3,7 +3,7 @@ import { questRouter } from "./Routes/question.js";
 import dotenv from "dotenv";
 import cors from "cors";
 import { userRouter } from "./Routes/user.js";
-import { isAuthorized } from "./Authorization/auth.js";
+// import { isAuthorized } from "./Authorization/auth.js";
 import { answRouter } from "./Routes/answer.js";
 
 

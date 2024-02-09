@@ -1,6 +1,6 @@
 import express from "express";
 import { addAnswer, deleteAnswer, getAllAnswer, updatedAnswer } from "../controllers/answer.js";
-import { isAuthorized } from "../Authorization/auth.js";
+// import { isAuthorized } from "../Authorization/auth.js";
 
 
 //initializing router
@@ -22,15 +22,21 @@ router.get("/all", async (req, res) => {
   }
 });
 
-// Update the route in answer.js to handle adding an answer without a question ID
-router.get("/all", async (req, res) => {
-  const answer = await getAllAnswer();
-
+//update
+router.put("/edit/:id", async (req, res) => {
   try {
-    if (answer.length <= 0) {
-      return res.status(404).json({ message: "Answer not found" });
+    const { id } = req.params;
+
+    if (Object.keys(req.body).length <= 0) {
+      return res.send(400).json({ error: "check request body" });
     }
-    res.status(200).json({ Answ: answer });
+
+    const updatedAnsw = await updatedAnsw(id, req.body);
+    if (!updatedAnsw.acknowledged) {
+      return res.send(400).json({ error: "error in updating a answer" });
+    }
+
+    res.status(200).json({ Answ: updatedAnsw });
   } catch (error) {
     return res
       .status(500)
@@ -41,7 +47,7 @@ router.get("/all", async (req, res) => {
 
 
 
-//update
+//add
 router.post("/add", async (req, res) => {
   try {
     if (Object.keys(req.body).length <= 0) {
