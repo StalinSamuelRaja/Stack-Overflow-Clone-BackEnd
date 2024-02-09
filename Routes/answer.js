@@ -1,5 +1,5 @@
 import express, { request } from "express";
-import { addAnswer, deleteAnswer, getAllAnswer, updatedAnswer } from "../controllers/answer.js";
+import { addAnswer, deleteAnswer, getAllAnswer, showAnswer, updatedAnswer } from "../controllers/answer.js";
 // import { isAuthorized } from "../Authorization/auth.js";
 
 
@@ -20,6 +20,26 @@ router.get("/all", async (req, res) => {
       .status(500)
       .json({ error: "Internal server error", errorMessage: error });
   }
+});
+
+router.get("/showans/:qid", async (req, res) => {
+
+  const { qid } = req.params;
+
+  const answer = await showAnswer(qid);
+  console.log(qid)
+  console.log(answer)
+  try {
+    if (answer.length <= 0) {
+      return res.status(404).json({ message: "Answer not found" });
+    }
+    res.status(200).json({ answer: answer });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Internal server error", errorMessage: error });
+  }
+  
 });
 
 //update
@@ -59,7 +79,7 @@ router.post("/add", async (req, res) => {
       return res.send(400).json({ error: "error in adding a answer" });
     }
 
-    res.status(201).json({ Answ: newAnsw });
+    res.status(201).json({ Answ: newAnsw , acknowledged: true});
   } catch (error) {
     console.log(error)
     return res

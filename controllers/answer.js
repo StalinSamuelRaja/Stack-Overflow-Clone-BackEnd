@@ -22,3 +22,7 @@ export function deleteAnswer(id) {
     .collection("answers")
     .deleteOne({ _id:new ObjectId(id) });
 }
+
+export function showAnswer(qid) {
+  return client.db("stackoverflow").collection("answers").find({quesId:qid});
+}
