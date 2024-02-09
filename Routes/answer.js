@@ -44,18 +44,16 @@ router.get("/all", async (req, res) => {
 //update
 router.post("/add", async (req, res) => {
   try {
-    const { id } = req.params;
-
     if (Object.keys(req.body).length <= 0) {
       return res.send(400).json({ error: "check request body" });
     }
     const Answ = { ...req.body };
-    const newAnsw = await addAnswer(Answ);
+    const newAnsw = await addQuestion(Answ);
     if (!newAnsw.acknowledged) {
-      return res.send(400).json({ error: "error in updating a answer" });
+      return res.send(400).json({ error: "error in adding a answer" });
     }
 
-    res.status(200).json({ Answ: newAnsw });
+    res.status(201).json({ Answ: newAnsw });
   } catch (error) {
     return res
       .status(500)
