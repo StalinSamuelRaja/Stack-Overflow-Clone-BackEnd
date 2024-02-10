@@ -27,8 +27,9 @@ router.get("/showans/:qid", async (req, res) => {
   const { qid } = req.params;
 
   const answer = await showAnswer(qid);
-  console.log(qid)
-  console.log(answer)
+
+  console.log("quesId",qid)
+  console.log("answer",answer)
   try {
     if (answer.length <= 0) {
       return res.status(404).json({ message: "Answer not found" });
