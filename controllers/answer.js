@@ -24,5 +24,5 @@ export function deleteAnswer(id) {
 }
 
 export function showAnswer(qid) {
-  return client.db("stackoverflow").collection("answers").find({quesId:qid});
+  return client.db("stackoverflow").collection("answers").find({quesId:qid}).toArray();
 }
