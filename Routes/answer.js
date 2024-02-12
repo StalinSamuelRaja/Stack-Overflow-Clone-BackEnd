@@ -7,20 +7,20 @@ import { addAnswer, deleteAnswer, getAllAnswer, showAnswer, updatedAnswer } from
 const router = express.Router();
 
 //get
-router.get("/all", async (req, res) => {
-  const answer = await getAllAnswer();
+// router.get("/all", async (req, res) => {
+//   const answer = await getAllAnswer();
 
-  try {
-    // if (answer.length <= 0) {
-    //   return res.status(404).json({ message: "Answer not found" });
-    // }
-    res.status(200).json({ Answ: answer });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ error: "Internal server error", errorMessage: error });
-  }
-});
+//   try {
+//     // if (answer.length <= 0) {
+//     //   return res.status(404).json({ message: "Answer not found" });
+//     // }
+//     res.status(200).json({ Answ: answer });
+//   } catch (error) {
+//     return res
+//       .status(500)
+//       .json({ error: "Internal server error", errorMessage: error });
+//   }
+// });
 
 router.get("/showans/:qid", async (req, res) => {
 

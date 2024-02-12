@@ -13,7 +13,7 @@ const router = express.Router();
 //get
 router.get("/all", async (req, res) => {
   const question = await getAllQuestion();
-
+  
   try {
     if (question.length <= 0) {
       return res.status(404).json({ message: "Question not found" });
