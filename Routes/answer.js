@@ -98,12 +98,13 @@ router.delete("/delete/:id", async (req, res) => {
     const selectedAnsw = await deleteAnswer(id);
     if (!selectedAnsw.acknowledged) {
       return res.send(400).json({ error: "error in deleting a answ" });
-    }
+    } 
     res.status(200).json({ Answ: selectedAnsw });
   } catch (error) {
     return res
       .status(500)
       .json({ error: "Internal server error", errorMessage: error });
   }
-});
+}); 
 export const answRouter = router;
+        
